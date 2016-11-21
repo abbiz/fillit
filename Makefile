@@ -2,29 +2,25 @@ NAME = fillit
 
 SRC =	main.c
 
-OBJ = $(SRC:.c=.o)
-
-INC = -I libft fillit.h
-LIB = -L libft/ -lft
+LIB = lft
 FLAGS = -Wall -Wextra -Werror
+
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@make -C libft/ re
-	@gcc -o $(NAME) $(OBJ) $(LIB)
-	@echo "\033[32;1m> Ready to fillit?\033[0m"
-
-$(OBJ): %.o: %.c
-	@gcc $(FLAGS) $(INC) -c $< -o $@
+$(NAME):
+	@gcc $(FLAGS) -c $(SRC)
+	@gcc $(OBJ) -L. -$(LIB) -o $(NAME)
+	@echo "\033[32;1m> $(NAME) is on.\n> Ready to fillit?\033[0m"
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -f $(OBJ)
 	@echo "\033[31m> Objects files are deleted.\033[0m"
 
 fclean: clean
-	@rm -rf $(NAME)
-	@echo "\033[31m> $(NAME) is over.\033[0m"
+	@rm -f $(NAME)
+	@echo "\033[31m> $(NAME) is off.\033[0m"
 
 re: fclean all
 
